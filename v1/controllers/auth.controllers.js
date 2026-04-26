@@ -1,0 +1,23 @@
+import { registrarUsuarioService, loginUsuarioService } from '../services/auth.services.js';
+import jwt from 'jsonwebtoken';
+
+export const registrarUsuario = async (req, res) => {
+        const resultado = await registrarUsuarioService(req.body);
+        const token = jwt.sign({ id: resultado.usuario.id,
+            email: resultado.usuario.email,
+            rol: resultado.usuario.rol,
+            plan: resultado.usuario.plan
+        }, process.env.SECRET_JWT, { expiresIn: '1d' });
+        return res.status(201).json({ resultado, token });
+};
+
+export const loginUsuario = async (req, res) => {
+        const resultado = await loginUsuarioService(req.body);
+        const token = jwt.sign({ id: resultado.usuario.id,
+            email: resultado.usuario.email,
+            rol: resultado.usuario.rol,
+            plan: resultado.usuario.plan
+        }, process.env.SECRET_JWT, { expiresIn: '1d' });
+        return res.status(201).json({ resultado, token });
+};
+

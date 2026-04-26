@@ -14,7 +14,7 @@ const router = express.Router({mergeParams: true});
 
 router.get("/", requiredRolMiddleware("admin"),obtenerUsuarios);
 router.get("/:id", requiredRolMiddleware("admin"), obtenerUsuarioPorId);
-router.patch("/", requiredRolMiddleware("viajero"), validateBodyMiddleware(actualizarUsuarioSchema) ,actualizarUsuario); 
-router.delete("/", requiredRolMiddleware("viajero"), eliminarUsuario);
+router.patch("/:id", requiredRolMiddleware("viajero"), validateBodyMiddleware(actualizarUsuarioSchema) ,actualizarUsuario); 
+router.delete("/:id", requiredRolMiddleware("viajero"), eliminarUsuario);
 
 export default router; 

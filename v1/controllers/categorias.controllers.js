@@ -8,7 +8,7 @@ import { crearCategoriaService,
     
 export const crearCategoria = async (req, res, next) => {
     try {
-        const resultado = await crearCategoriaService(req.body);
+        const resultado = await crearCategoriaService(req.validateBody);
 
         return res.status(201).json(resultado);
     } catch (error) {
@@ -46,7 +46,7 @@ export const obtenerCategoriaPorId = async (req, res, next) => {
 export const actualizarCategoria = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const categoriaData = req.body;
+        const categoriaData = req.validateBody;
 
         const categoriaActualizada = await actualizarCategoriaService(id, categoriaData);
 

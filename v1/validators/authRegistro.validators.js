@@ -28,10 +28,10 @@ export const registrarUsuarioSchema = Joi.object({
          
     }), 
 
-    rol: Joi.string().trim().valid("admin", "traveler").required().messages({
+    rol: Joi.string().trim().valid("admin", "viajero").required().messages({
         "string.base": "El rol debe ser un texto",
         "string.empty": "El rol no puede estar vacio",
-        "any.only": "El rol debe ser admin o traveler",
+        "any.only": "El rol debe ser admin o viajero",
         "any.required": "El rol es obligatorio"
     }),
 });

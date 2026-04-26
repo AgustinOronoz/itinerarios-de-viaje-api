@@ -39,6 +39,18 @@ export const crearItinerarioService = async (usuarioId, itinerarioData) => {
     });
 
     await nuevoItinerario.save();
+    
+    try {
+        await Usuario.findByIdAndUpdate(usuarioId, {
+            $push: { itinerarios: nuevoItinerario._id }
+        });
+    } catch (error) {
+        // Si falla el $push, eliminar el itinerario creado
+        await Itinerario.findByIdAndDelete(nuevoItinerario._id);
+        const pushError = new Error("Error al guardar el itinerario en la lista del usuario");
+        pushError.status = 500;
+        throw pushError;
+    }
 
     return {
         success: true,
@@ -145,6 +157,15 @@ export const eliminarItinerarioService = async (id, usuarioId) => {
         error.status = 404;
         error.details = { id };
         throw error;
+    }
+
+    try {
+        await Usuario.findByIdAndUpdate(usuarioId, {
+            $pull: { itinerarios: id }
+        });
+    } catch (error) {
+        // Advertencia: el itinerario ya se eliminó pero falló el $pull del usuario
+        console.error(`Advertencia: No se pudo eliminar itinerario ${id} de la lista del usuario ${usuarioId}`);
     }
 
     return {

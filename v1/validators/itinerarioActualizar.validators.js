@@ -5,61 +5,54 @@ export const actualizarItinerarioSchema = Joi.object({
         "string.base": "El título del itinerario debe ser un texto",
         "string.empty": "El título del itinerario no puede estar vacío",
         "string.min": "El título del itinerario debe tener al menos {#limit} caracteres",
-        "string.max": "El título del itinerario debe tener como máximo {#limit} caracteres",
-        "any.required": "El título del itinerario es obligatorio"
+        "string.max": "El título del itinerario debe tener como máximo {#limit} caracteres"
     }),
 
     descripcion: Joi.string().trim().min(10).max(1000).optional().messages({
         "string.base": "La descripción del itinerario debe ser un texto",
         "string.empty": "La descripción del itinerario no puede estar vacía",
         "string.min": "La descripción del itinerario debe tener al menos {#limit} caracteres",
-        "string.max": "La descripción del itinerario debe tener como máximo {#limit} caracteres",
-        "any.required": "La descripción del itinerario es obligatoria"
+        "string.max": "La descripción del itinerario debe tener como máximo {#limit} caracteres"
     }),
     pais: Joi.string().trim().min(2).max(60).optional().messages({
         "string.base": "El país debe ser un texto",
         "string.empty": "El país no puede estar vacío",
         "string.min": "El país debe tener al menos {#limit} caracteres",
-        "string.max": "El país debe tener como máximo {#limit} caracteres",
-        "any.required": "El país es obligatorio"
+        "string.max": "El país debe tener como máximo {#limit} caracteres"
     }),
 
     ciudad: Joi.string().trim().min(2).max(60).optional().messages({
         "string.base": "La ciudad debe ser un texto",
         "string.empty": "La ciudad no puede estar vacía",
         "string.min": "La ciudad debe tener al menos {#limit} caracteres",
-        "string.max": "La ciudad debe tener como máximo {#limit} caracteres",
-        "any.required": "La ciudad es obligatoria"
+        "string.max": "La ciudad debe tener como máximo {#limit} caracteres"
     }),
 
     categoria: Joi.string().trim().hex().length(24).optional().messages({
         "string.base": "La categoría debe ser un texto",
         "string.empty": "La categoría no puede estar vacía",
         "string.hex": "La categoría debe tener un formato de id válido",
-        "string.length": "La categoría debe tener un formato de id válido",
-        "any.required": "La categoría es obligatoria"
+        "string.length": "La categoría debe tener un formato de id válido"
+
     }),
 
-    fechaInicial: Joi.date().optional().messages({
-        "date.base": "La fecha inicial debe ser una fecha válida",
-        "any.required": "La fecha inicial es obligatoria"
-    }),
-
-    fechaFinal: Joi.date().greater(Joi.ref("fechaInicial")).optional().messages({
-        "date.base": "La fecha final debe ser una fecha válida",
-        "date.greater": "La fecha final debe ser posterior a la fecha inicial",
-        "any.required": "La fecha final es obligatoria"
+    duracionDias: Joi.number().integer().positive().optional().messages({
+        "number.base": "La duración en días debe ser un número",
+        "number.integer": "La duración en días debe ser un número entero",
+        "number.positive": "La duración en días debe ser mayor que 0"
     }),
 
     presupuesto: Joi.number().positive().optional().messages({
         "number.base": "El presupuesto debe ser un número",
-        "number.positive": "El presupuesto debe ser mayor que 0",
-        "any.required": "El presupuesto es obligatorio"
+        "number.positive": "El presupuesto debe ser mayor que 0"
   }),
       imagenUrl: Joi.string().uri().optional().messages({
           "string.base": "La URL de la imagen debe ser un texto", //va a guardar la url que es un texto, con uri() se asegura que tenga formato de url
-          "string.uri": "La URL de la imagen debe ser una URL válida",
+          "string.uri": "La URL de la imagen debe ser una URL válida"
       }),
+        esPublico: Joi.boolean().optional().messages({
+            "boolean.base": "El campo esPublico debe ser un valor booleano"
+        }),
 })
 .min(1)
 .messages({

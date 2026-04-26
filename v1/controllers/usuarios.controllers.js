@@ -34,7 +34,7 @@ export const obtenerUsuarioPorId = async (req, res, next) => {
 export const actualizarUsuario = async (req, res, next) => {
     try {
         const id = req.user.id;
-        const userData = req.body;
+        const userData = req.validateBody;
 
         const usuarioActualizado = await actualizarUsuarioService(id, userData);
 

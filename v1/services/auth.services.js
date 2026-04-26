@@ -36,16 +36,26 @@ export const registrarUsuarioService = async (user) => {
 export const loginUsuarioService = async (user) => {
     const usuarioEncontrado = await Usuario.findOne({ email: user.email });
     if (!usuarioEncontrado) {
-        return { success: false, message: "Usuario no encontrado" };
+        const error = new Error("Usuario no encontrado");
+        error.status = 401;
+        throw error;
     }
     const valid = bcryptjs.compareSync(user.password, usuarioEncontrado.password);
     if (!valid) {
-        return { success: false, message: "Contraseña incorrecta" };
+        const error = new Error("Contraseña incorrecta");
+        error.status = 401;
+        throw error;
     }
-    //ideal no paso usuario pero opción
    
-    return { success: true, message: "Login exitoso",   usuario: {
+    return { 
+        success: true, 
+        message: "Login exitoso",
+        usuario: {
+            id: usuarioEncontrado.id,
             nombre: usuarioEncontrado.nombre,
+            email: usuarioEncontrado.email,
+            rol: usuarioEncontrado.rol,
             plan: usuarioEncontrado.plan
-        }};
+        }
+    };
 };

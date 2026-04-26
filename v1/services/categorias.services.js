@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Categoria from "../models/categoria.model.js";
+const { isValidObjectId } = mongoose;
 
 export const crearCategoriaService = async (categoriaData) => {
     const categoriaExistente = await Categoria.findOne({ nombre: categoriaData.nombre });

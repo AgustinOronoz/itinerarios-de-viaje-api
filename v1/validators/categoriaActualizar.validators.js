@@ -5,13 +5,11 @@ export const actualizarCategoriaSchema = Joi.object({
         "string.base": "El nombre de la categoria debe ser un texto",
         "string.empty": "El nombre de la categoria no puede estar vacio",
         "string.min": "El nombre de la categoria debe tener al menos {#limit} caracteres",
-        "string.max": "El nombre de la categoria debe tener como maximo {#limit} caracteres",
-        "any.required": "El nombre de la categoria es obligatorio" 
+        "string.max": "El nombre de la categoria debe tener como maximo {#limit} caracteres"
     }), 
     descripcion: Joi.string().trim().lowercase().optional().messages({
         "string.base": "La descripcion de la categoria debe ser un texto",
-        "string.empty": "La descripcion de la categoria no puede estar vacia",
-        "any.required": "La descripcion de la categoria es obligatoria"
+        "string.empty": "La descripcion de la categoria no puede estar vacia"
     }),})
 .min(1)
 .messages({

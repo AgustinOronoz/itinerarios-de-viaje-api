@@ -1,3 +1,4 @@
+import e from "express";
 import Joi from "joi"; 
 
 export const crearItinerarioSchema = Joi.object({
@@ -41,16 +42,13 @@ export const crearItinerarioSchema = Joi.object({
         "any.required": "La categoría es obligatoria"
     }),
 
-    fechaInicial: Joi.date().required().messages({
-        "date.base": "La fecha inicial debe ser una fecha válida",
-        "any.required": "La fecha inicial es obligatoria"
+    duracionDias: Joi.number().integer().positive().required().messages({
+        "number.base": "La duración en días debe ser un número",
+        "number.integer": "La duración en días debe ser un número entero",
+        "number.positive": "La duración en días debe ser mayor que 0",
+        "any.required": "La duración en días es obligatoria"
     }),
 
-    fechaFinal: Joi.date().greater(Joi.ref("fechaInicial")).required().messages({
-        "date.base": "La fecha final debe ser una fecha válida",
-        "date.greater": "La fecha final debe ser posterior a la fecha inicial",
-        "any.required": "La fecha final es obligatoria"
-    }),
 
     presupuesto: Joi.number().positive().required().messages({
         "number.base": "El presupuesto debe ser un número",
@@ -60,5 +58,8 @@ export const crearItinerarioSchema = Joi.object({
     imagenUrl: Joi.string().uri().optional().messages({
         "string.base": "La URL de la imagen debe ser un texto", //va a guardar la url que es un texto, con uri() se asegura que tenga formato de url
         "string.uri": "La URL de la imagen debe ser una URL válida",
+    }),
+    esPublico: Joi.boolean().optional().messages({
+        "boolean.base": "El campo esPublico debe ser un valor booleano"
     }),
 });

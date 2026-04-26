@@ -46,6 +46,10 @@ export const actualizarUsuarioService = async (id, userData) => {
         datosActualizados.password = hashedPassword;
     }
 
+    if (userData.plan) {
+        datosActualizados.plan = userData.plan;
+    }
+
     const usuarioActualizado = await Usuario.findByIdAndUpdate(
         id,
         datosActualizados,

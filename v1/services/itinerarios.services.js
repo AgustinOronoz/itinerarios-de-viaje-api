@@ -113,13 +113,15 @@ export const actualizarItinerarioService = async (id, usuarioId, itinerarioData)
         throw error;
     }
         
-    const categoria = await Categoria.findById(itinerarioData.categoria);
+    if (itinerarioData.categoria) {
+        const categoria = await Categoria.findById(itinerarioData.categoria);
 
-    if (!categoria) {
-        const error = new Error("Categoría no encontrada");
-        error.status = 404;
-        error.details = { categoria: itinerarioData.categoria };
-        throw error;
+        if (!categoria) {
+            const error = new Error("Categoría no encontrada");
+            error.status = 404;
+            error.details = { categoria: itinerarioData.categoria };
+            throw error;
+        }
     }
 
     const itinerarioActualizado = await Itinerario.findByIdAndUpdate(

@@ -9,7 +9,7 @@ export const validateBodyMiddleware = schema => {
                 details: error.details
             });
         }
-        req.validateBody = value; //si la validacion es correcta, se guarda el valor validado en el objeto req para que pueda ser utilizado en el controlador, el req.validateBody es el valor validado que se guarda en el middleware validateBodyMiddleware
+        req.validatedBody = value; //si la validacion es correcta, se guarda el valor validado en el objeto req para que pueda ser utilizado en el controlador, el req.validatedBody es el valor validado que se guarda en el middleware validateBodyMiddleware
         next();
     };
 };

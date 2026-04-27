@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 //puede ser const o default export xq va a ser la unica funcion exportada en este archivo, se exporta para poder usarla en el archivo server.js
 export const connectDB = async () => {
     try {
+        console.log(process.env.MONGODB_URI);
+        
         await mongoose.connect(process.env.MONGODB_URI); //se conecta a la base de datos utilizando la URI definida en las variables de entorno{
         console.log("Conectado a MongoDB");
     } catch (error) {

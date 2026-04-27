@@ -9,7 +9,7 @@ import {
 export const crearItinerario = async (req, res, next) => {
     try {
         const usuarioId = req.user.id;
-        const itinerarioData = req.validateBody;
+        const itinerarioData = req.validatedBody;
 
         const resultado = await crearItinerarioService(usuarioId, itinerarioData);
 
@@ -53,7 +53,7 @@ export const actualizarItinerario = async (req, res, next) => {
     try {
         const usuarioId = req.user.id;
         const { id } = req.params;
-        const itinerarioData = req.validateBody;
+        const itinerarioData = req.validatedBody;
 
         const resultado = await actualizarItinerarioService(id, usuarioId, itinerarioData);
 

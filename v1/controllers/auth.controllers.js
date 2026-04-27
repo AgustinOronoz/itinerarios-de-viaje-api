@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const registrarUsuario = async (req, res, next) => {
     try {
-        const resultado = await registrarUsuarioService(req.validateBody);
+        const resultado = await registrarUsuarioService(req.validatedBody);
         const token = jwt.sign({ id: resultado.usuario.id,
             email: resultado.usuario.email,
             rol: resultado.usuario.rol,
@@ -17,7 +17,7 @@ export const registrarUsuario = async (req, res, next) => {
 
 export const loginUsuario = async (req, res, next) => {
     try {
-        const resultado = await loginUsuarioService(req.validateBody);
+        const resultado = await loginUsuarioService(req.validatedBody);
         const token = jwt.sign({ id: resultado.usuario.id,
             email: resultado.usuario.email,
             rol: resultado.usuario.rol,

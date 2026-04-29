@@ -31,18 +31,17 @@ export const registrarUsuarioService = async (user) => {
     };
 };
 
-//CAMBIAR LOS ERRORES POR ALGO MAS GENERICO, LUEGO DE HABER HECHO TESTING
 
 export const loginUsuarioService = async (user) => {
     const usuarioEncontrado = await Usuario.findOne({ email: user.email });
     if (!usuarioEncontrado) {
-        const error = new Error("Usuario no encontrado");
+        const error = new Error("Error en credenciales");
         error.status = 401;
         throw error;
     }
     const valid = bcryptjs.compareSync(user.password, usuarioEncontrado.password);
     if (!valid) {
-        const error = new Error("Contraseña incorrecta");
+        const error = new Error("Error en credenciales");
         error.status = 401;
         throw error;
     }

@@ -1,4 +1,4 @@
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 
 // Limitar intentos de login: máximo 5 intentos por IP cada 15 minutos
 export const loginLimiter = rateLimit({
@@ -10,8 +10,5 @@ export const loginLimiter = rateLimit({
     },
     standardHeaders: false, // No envia cuantos intentos quedan en los headers
     legacyHeaders: false, // No envia headers de ratelimit antiguos
-    keyGenerator: (req, res) => { 
-        return req.ip || req.connection.remoteAddress;     // Identifica cada cliente por su IP
-                                                        // Esto permite contar intentos POR USUARIO/IP
-    }
+    keyGenerator: ipKeyGenerator // Usa el helper de express-rate-limit para IPv6
 });

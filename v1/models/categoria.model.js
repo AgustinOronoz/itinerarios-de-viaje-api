@@ -7,4 +7,4 @@ const categoriaSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-export default mongoose.model("Categoria", categoriaSchema);
+export default mongoose.models.Categoria || mongoose.model("Categoria", categoriaSchema);

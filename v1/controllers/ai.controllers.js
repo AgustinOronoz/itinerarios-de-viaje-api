@@ -16,7 +16,7 @@ export const useGemini25Flash = async (req, res, next) => {
 
         const resultado = await useGemini25FlashService(prompt);
 
-        return res.status(201).json(resultado);
+        return res.status(200).json(resultado);
     } catch (error) {
         next(error);
     }

@@ -17,4 +17,4 @@ const itinerarioSchema = new mongoose.Schema({
     timestamps: true, //para q mongoose cree automáticamente los campos createdAt y updatedAt para cada documento, lo que facilita el seguimiento de cuándo se creó o actualizó un itinerario.
 });
 
-export default mongoose.model("Itinerario", itinerarioSchema);
+export default mongoose.models.Itinerario || mongoose.model("Itinerario", itinerarioSchema);

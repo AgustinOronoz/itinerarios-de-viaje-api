@@ -18,11 +18,14 @@ export const crearCategoria = async (req, res, next) => {
 
 export const obtenerCategorias = async (req, res, next) => {
     try {
-        const categorias = await obtenerCategoriasService();
+        const page = req.query.page;
+        const limit = req.query.limit;
+        
+        const resultado = await obtenerCategoriasService(page, limit);
 
         return res.status(200).json({
             success: true,
-            categorias
+            ...resultado
         });
     } catch (error) {
         next(error);

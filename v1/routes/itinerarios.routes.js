@@ -3,11 +3,13 @@ import { requiredRolMiddleware } from '../middlewares/requiredRol.middleware.js'
 import { validateBodyMiddleware } from '../middlewares/validateBody.middleware.js';
 import { crearItinerarioSchema } from '../validators/itinerarioCrear.validators.js';
 import { actualizarItinerarioSchema } from '../validators/itinerarioActualizar.validators.js';
-import { crearItinerario,
-    obtenerItinerarios,
-    obtenerItinerarioPorId,
-actualizarItinerario ,
-eliminarItinerario
+import {crearItinerario,
+        obtenerItinerarios,
+        obtenerItinerarioPorId,
+        actualizarItinerario ,
+        eliminarItinerario,
+        subirImagenItinerario,
+        obtenerClimaItinerario
  } from '../controllers/itinerarios.controllers.js';
 
 
@@ -18,6 +20,8 @@ router.get("/", requiredRolMiddleware("viajero"), obtenerItinerarios);
 router.get("/:id", requiredRolMiddleware("viajero"), obtenerItinerarioPorId);  
 router.patch("/:id", requiredRolMiddleware("viajero"), validateBodyMiddleware(actualizarItinerarioSchema), actualizarItinerario); 
 router.delete("/:id", requiredRolMiddleware("viajero"), eliminarItinerario);    
+router.patch("/:id/imagen", requiredRolMiddleware("viajero"), subirImagenItinerario);  
+router.get("/:id/clima", requiredRolMiddleware("viajero"), obtenerClimaItinerario);
 
 
 

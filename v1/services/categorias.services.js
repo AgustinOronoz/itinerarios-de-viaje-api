@@ -22,9 +22,31 @@ export const crearCategoriaService = async (categoriaData) => {
     };
 };
 
-export const obtenerCategoriasService = async () => {
-    const categorias = await Categoria.find();
-    return categorias;
+export const obtenerCategoriasService = async (page = 1, limit = 10) => {
+    // Convertir a números y validar
+    page = Math.max(1, parseInt(page) || 1);
+    limit = Math.max(1, Math.min(100, parseInt(limit) || 10)); // máximo 100 por página
+    
+    const skip = (page - 1) * limit;
+    
+    // Obtener total de documentos
+    const total = await Categoria.countDocuments();
+    
+    // Obtener documentos paginados
+    const categorias = await Categoria.find()
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 });
+    
+    return {
+        data: categorias,
+        pagination: {
+            currentPage: page,
+            itemsPerPage: limit,
+            totalItems: total,
+            totalPages: Math.ceil(total / limit)
+        }
+    };
 };
 
 export const obtenerCategoriaPorIdService = async (id) => {

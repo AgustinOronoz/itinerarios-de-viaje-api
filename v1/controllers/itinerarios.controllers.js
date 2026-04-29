@@ -1,9 +1,13 @@
+import { upload } from "../middlewares/multer.middleware.js";
+import { runMulterSingle } from "../utils/multer.util.js";
 import {
     crearItinerarioService,
     obtenerItinerariosService,
     obtenerItinerarioPorIdService,
     actualizarItinerarioService,
-    eliminarItinerarioService
+    eliminarItinerarioService,
+    subirImagenItinerarioService, 
+    obtenerClimaItinerarioService
 } from "../services/itinerarios.services.js";
 
 export const crearItinerario = async (req, res, next) => {
@@ -22,11 +26,14 @@ export const crearItinerario = async (req, res, next) => {
 export const obtenerItinerarios = async (req, res, next) => {
     try {
         const usuarioId = req.user.id;
-        const itinerarios = await obtenerItinerariosService(usuarioId);
+        const page = req.query.page;
+        const limit = req.query.limit;
+        
+        const resultado = await obtenerItinerariosService(usuarioId, page, limit);
 
         return res.status(200).json({
             success: true,
-            itinerarios
+            ...resultado
         });
     } catch (error) {
         next(error);
@@ -69,6 +76,34 @@ export const eliminarItinerario = async (req, res, next) => {
         const { id } = req.params;
 
         const resultado = await eliminarItinerarioService(id, usuarioId);
+
+        return res.status(200).json(resultado);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const subirImagenItinerario = async (req, res, next) => {
+    try {
+        await runMulterSingle(upload, "imagen", req, res);
+
+        const usuarioId = req.user.id;
+        const { id } = req.params;
+
+        const resultado = await subirImagenItinerarioService(id, usuarioId, req.file);
+
+        return res.status(200).json(resultado);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const obtenerClimaItinerario = async (req, res, next) => {
+    try {
+        const usuarioId = req.user.id;
+        const { id } = req.params;
+
+        const resultado = await obtenerClimaItinerarioService(id, usuarioId);
 
         return res.status(200).json(resultado);
     } catch (error) {

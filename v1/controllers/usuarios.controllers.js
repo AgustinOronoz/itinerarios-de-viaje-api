@@ -5,11 +5,14 @@ import { obtenerUsuariosService,
 
 export const obtenerUsuarios = async (req, res, next) => {
     try {
-        const usuarios = await obtenerUsuariosService();
+        const page = req.query.page;
+        const limit = req.query.limit;
+        
+        const resultado = await obtenerUsuariosService(page, limit);
 
         return res.status(200).json({
             success: true,
-            usuarios
+            ...resultado
         });
     } catch (error) {
         next(error);

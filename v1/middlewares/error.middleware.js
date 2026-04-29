@@ -10,6 +10,6 @@ export const errorMiddleware = (err, req, res, next) => {
         success: false,
         message: process.env.NODE_ENV === 'production' 
             ? "Error interno del servidor" // Cliente no ve detalles
-            : err.message
+            : err.message 
     });
 }; //capura cualquier error que ocurra en las rutas y lo maneja de forma centralizada, evitando que el servidor se caiga por errores no manejados.

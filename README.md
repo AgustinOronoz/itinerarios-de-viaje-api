@@ -37,7 +37,7 @@ v1/
 npm install
 ```
 
-Crear un archivo `.env` en la raíz con estas variables:
+Copiar `.env.example` como `.env` en la raíz y completar las variables:
 
 ```
 MONGODB_URI=

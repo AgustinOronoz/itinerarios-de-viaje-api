@@ -19,3 +19,8 @@ coverage/
 # Carpeta de compilación / build
 dist/
 build/
+
+# Variables de entorno (credenciales)
+.env
+.env.*
+!.env.example
